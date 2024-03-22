@@ -16,6 +16,6 @@ export class AppController {
 
   @Get('config')
   getConfig(): string {
-    return `Database : ${this.configService.get('database')}`;
+    return this.configService.get('database');
   }
 }
