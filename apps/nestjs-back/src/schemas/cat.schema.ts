@@ -1,9 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type CatDocument = HydratedDocument<Cat>;
 @Schema({ timestamps: true })
 export class Cat {
+  @Prop()
+  id: number;
   @Prop()
   name: string;
 
@@ -15,9 +17,3 @@ export class Cat {
 }
 
 export const CatSchema = SchemaFactory.createForClass(Cat);
-
-// export const CatSchema = new mongoose.Schema({
-//   name: String,
-//   age: Number,
-//   breed: String,
-// });

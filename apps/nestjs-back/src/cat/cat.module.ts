@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { CatService } from './cat.service';
 import { CatController } from './cat.controller';
 import { MongooseModule, getConnectionToken } from '@nestjs/mongoose';
-import { Cat, CatSchema } from './schema/cat.schema';
+import { Cat, CatSchema } from '../schemas/cat.schema';
 import { Connection } from 'mongoose';
 
 @Module({
