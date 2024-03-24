@@ -12,18 +12,18 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "../../",
     "plugins": [
       {
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["apps/nextjs-front/src/*"],
-      // TODO: 모노레포에서 백엔드 참조하려면?
-      "@root/*": ["./*"]
+      "@/*": ["src/*"],
+      "@root/*": ["../../*"],
+      "apps/nestjs-back/src*": ["../nestjs-back/src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "../nestjs-back"]
 }
