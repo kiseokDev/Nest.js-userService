@@ -4886,7 +4886,7 @@ mongodb@6.3.0:
 
 mongoose-autopopulate@^1.1.0:
   version "1.1.0"
-  resolved "https://registry.npmjs.org/mongoose-autopopulate/-/mongoose-autopopulate-1.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/mongoose-autopopulate/-/mongoose-autopopulate-1.1.0.tgz#6c89baa2a5b3f9c04a68d65a80f85c0fc56c2227"
   integrity sha512-nTlTMlu1fLQ1bmJT7ILKbZmPGt2fHErLO4UJwzMDsHSigjtUYz0l3nvFhg511QkOkZcKBRzOnPn3DmmLIUENzg==
 
 mongoose-sequence@^6.0.1:

@@ -17,9 +17,10 @@ import { CatModule } from './cat/cat.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot(
-      `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@cluster0.vgbkfg4.mongodb.net/crawling`,
+      `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@cluster0.vgbkfg4.mongodb.net/crawl`,
       {
         connectionFactory: (connection) => {
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
           connection.plugin(require('mongoose-autopopulate'));
           return connection;
         },
