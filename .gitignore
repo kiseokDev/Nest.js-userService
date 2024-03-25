@@ -60,3 +60,7 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 .cache
 .cache/*
 package.lock.json
+
+#  docker 
+.dockerignore
+Dockerfile

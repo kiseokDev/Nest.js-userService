@@ -1,23 +1,24 @@
-# Node.js v14를 기반으로 하는 베이스 이미지를 설정합니다.
-FROM node:14
+# Node.js 애플리케이션을 위한 베이스 이미지를 선택합니다.
+FROM node:18
 
-# 앱 디렉터리를 생성합니다.
+# 애플리케이션의 루트 디렉토리를 설정합니다.
 WORKDIR /usr/src/app
 
-# 앱 의존성을 설치하기 위한 package.json과 package-lock.json 파일을 복사합니다.
-COPY package*.json ./
+# package.json 파일과 yarn.lock 파일을 복사합니다.
+COPY package.json yarn.lock ./
 
-# 앱 의존성을 설치합니다.
-RUN npm install
+# 의존성을 설치합니다.
+RUN yarn install 
 
-# TypeScript를 JavaScript로 컴파일합니다.
-RUN npm run build
+# pm2를 설치합니다.
+RUN yarn global add pm2
 
-# 앱 소스를 Docker 이미지 내부로 복사합니다.
+# 애플리케이션의 소스 코드를 복사합니다.
 COPY . .
 
-# 앱이 8080 포트에서 실행될 것임을 Docker에 알립니다.
-EXPOSE 8080
+# TypeScript를 JavaScript로 컴파일합니다.
+RUN yarn run build
 
-# 앱을 실행합니다.
-CMD [ "node", "dist/main.js" ]
+# 컨테이너가 시작될 때 실행할 명령을 설정합니다.
+CMD ["pm2-runtime", "start", "dist/apps/nestjs-back/main.js"]
+
