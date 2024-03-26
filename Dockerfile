@@ -19,6 +19,6 @@ COPY . .
 # TypeScript를 JavaScript로 컴파일합니다.
 RUN yarn run build
 
-# 컨테이너가 시작될 때 실행할 명령을 설정합니다.
-CMD ["pm2-runtime", "start", "dist/apps/nestjs-back/main.js"]
 
+# 컨테이너가 시작될 때 실행할 명령을 설정합니다.
+CMD ["pm2-runtime", "dist/apps/nestjs-back/main.js"]

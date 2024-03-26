@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "NODE_ENV=production nest build",
+    "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "NODE_ENV=production node dist/apps/nestjs-back/main",
     "start:dev": "NODE_ENV=development nest start --watch",
