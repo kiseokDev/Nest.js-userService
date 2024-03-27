@@ -2,16 +2,7 @@ import apiClient from '@/lib/axiosClient';
 import { CatType } from '@root/common/dto/catDto';
 
 async function getData() {
-  const res = apiClient.get('/cat');
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  //   if (!res) {
-  //     // This will activate the closest `error.js` Error Boundary
-  //     throw new Error('Failed to fetch data');
-  //   }
-
-  return res;
+  return apiClient.get('/cat');
 }
 
 async function testEnv() {
@@ -19,7 +10,7 @@ async function testEnv() {
 }
 
 export default async function Cat() {
-  const cats = await getData();
+  const cats: any = await getData();
   const env = await testEnv();
   return cats.map((cat: CatType) => (
     <>
