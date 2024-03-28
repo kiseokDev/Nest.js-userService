@@ -12,7 +12,9 @@ FROM node:18-alpine
 WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/dist ./dist
 COPY package.json yarn.lock ./
-ENV NODE_ENV=production
-RUN yarn install --production
-RUN  npm install pm2 -g
-CMD ["pm2-runtime", "start", "ecosystem.config.js", "--env", "production"]
+ENV NODE_ENV=development
+RUN yarn install
+RUN yarn global add pm2
+EXPOSE 3001
+
+CMD ["pm2-runtime", "start", "ecosystem.config.js", "--env", "development"]
