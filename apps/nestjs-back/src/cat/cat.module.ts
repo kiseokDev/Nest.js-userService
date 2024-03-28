@@ -8,20 +8,7 @@ import { Connection } from 'mongoose';
 
 @Module({
   //   imports: [MongooseModule.forFeature([{ name: Cat.name, schema: CatSchema }])],
-  imports: [
-    MongooseModule.forFeatureAsync([
-      {
-        name: Cat.name,
-        useFactory: async (connection: Connection) => {
-          const schema = CatSchema;
-          const AutoIncrement = require('mongoose-sequence')(connection);
-          schema.plugin(AutoIncrement, { inc_field: 'id' });
-          return schema;
-        },
-        inject: [getConnectionToken('')],
-      },
-    ]),
-  ],
+  imports: [MongooseModule.forFeature([{ name: Cat.name, schema: CatSchema }])],
   controllers: [CatController],
   providers: [CatService],
 })

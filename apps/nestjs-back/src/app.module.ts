@@ -1,10 +1,14 @@
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseModule, getConnectionToken } from '@nestjs/mongoose';
 import { CatModule } from './cat/cat.module';
 import configuration from './config/configuration';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Logger, Module } from '@nestjs/common';
+import { Product } from './product/entities/product.entity';
+import { ProductModule } from './product/product.module';
+import * as AutoIncrementFactory from 'mongoose-sequence';
+import { Connection } from 'mongoose';
 
 @Module({
   imports: [
@@ -22,7 +26,7 @@ import { Logger, Module } from '@nestjs/common';
           username: configService.get<string>('DATABASE_USER'),
           password: configService.get<string>('DATABASE_PASS'),
         },
-        connectionFactory: (connection) => {
+        connectionFactory: (connection: Connection) => {
           // eslint-disable-next-line @typescript-eslint/no-var-requires
           connection.plugin(require('mongoose-autopopulate'));
           return connection;
@@ -31,18 +35,9 @@ import { Logger, Module } from '@nestjs/common';
       inject: [ConfigService],
     }),
     CatModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  constructor(private configService: ConfigService) {
-    Logger.log(
-      `🚀 Application running at port ${this.configService.get('PORT')}`,
-    );
-    Logger.log('DATABASE_URI', this.configService.get('DATABASE_URI'));
-    Logger.log('DATABASE_NAME', this.configService.get('DATABASE_NAME'));
-    Logger.log('DATABASE_USER', this.configService.get('DATABASE_USER'));
-    Logger.log('DATABASE_PASS', this.configService.get('DATABASE_PASS'));
-  }
-}
+export class AppModule {}
