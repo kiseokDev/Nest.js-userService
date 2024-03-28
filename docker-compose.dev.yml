@@ -29,12 +29,13 @@ services:
       - mongodb
 
   dev-app:
-    image: devleekiseok0126/nestjs-crawl:dev
-    # build:
-    #   context: ./
-    #   dockerfile: Dockerfile
+    # image: devleekiseok0126/nestjs-crawl:dev
+    image: dev-app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    platform: linux/amd64
     container_name: dev-app
-    # platform: linux/arm64/v8 집에서
     ports:
       - 3001:3001
     depends_on:
@@ -52,6 +53,7 @@ services:
   nginx:
     image: nginx:latest
     container_name: nginx
+    platform: linux/amd64
     ports:
       - '80:80'
     volumes:
