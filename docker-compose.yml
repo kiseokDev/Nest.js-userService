@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 services:
   mongodb:
     image: mongo
@@ -42,13 +42,12 @@ services:
       - mongodb
     environment:
       PORT: 3001
-      NODE_ENV: development
       DATABASE_NAME: crawl
       DATABASE_USER: dev
       DATABASE_PASS: 2536
       DATABASE_URI: mongodb://mongodb:27017
-    volumes:
-      - ./:/usr/src/app
+    # volumes:
+    #   - ./:/usr/src/app
 
   nginx:
     image: nginx:latest

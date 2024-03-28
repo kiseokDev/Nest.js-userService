@@ -11,10 +11,7 @@ RUN yarn run build
 FROM node:18-alpine
 WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/dist ./dist
-COPY package.json yarn.lock ./
-ENV NODE_ENV=development
-RUN yarn install
-RUN yarn global add pm2
-EXPOSE 3001
+COPY package.json yarn.lock tsconfig.json tsconfig.build.json ./
+RUN yarn install --production
 
-CMD ["pm2-runtime", "start", "ecosystem.config.js", "--env", "development"]
+CMD ["yarn", "start"]
