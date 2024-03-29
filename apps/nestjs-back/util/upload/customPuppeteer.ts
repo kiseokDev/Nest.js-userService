@@ -2,34 +2,34 @@ import { Product } from '../../src/product/entities/product.entity';
 
 export class CustomPuppeteer {
   naverStoreUplaod(product: Product) {
-    console.log(product, 'naverStoreUplaod');
+    return { product, test: 'naverStoreUplaod' };
   }
   cupangStoreUplaod(product: Product) {
-    console.log(product, 'cupangStoreUplaod');
+    return { product, test: 'cupangStoreUplaod' };
   }
   gmarketStoreUplaod(product: Product) {
-    console.log(product, 'gmarketStoreUplaod');
+    return { product, test: 'gmarketStoreUplaod' };
   }
   auctionStoreUplaod(product: Product) {
-    console.log(product, 'auctionStoreUplaod');
+    return { product, test: 'auctionStoreUplaod' };
   }
   elevenStoreUplaod(product: Product) {
-    console.log(product, 'elevenStoreUplaod');
+    return { product, test: 'elevenStoreUplaod' };
   }
   wemakepriceStoreUplaod(product: Product) {
-    console.log(product, 'wemakepriceStoreUplaod');
+    return { product, test: 'wemakepriceStoreUplaod' };
   }
   ssgStoreUplaod(product: Product) {
-    console.log(product, 'ssgStoreUplaod');
+    return { product, test: 'ssgStoreUplaod' };
   }
   tmonStoreUplaod(product: Product) {
-    console.log(product, 'tmonStoreUplaod');
+    return { product, test: 'tmonStoreUplaod' };
   }
   wconceptStoreUplaod(product: Product) {
-    console.log(product, 'wconceptStoreUplaod');
+    return { product, test: 'wconceptStoreUplaod' };
   }
   interparkStoreUplaod(product: Product) {
-    console.log(product, 'interparkStoreUplaod');
+    return { product, test: 'interparkStoreUplaod' };
   }
 }
 

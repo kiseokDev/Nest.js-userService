@@ -4,8 +4,9 @@ import { NaverStoreUpload } from './naver';
 import { UPLOAD_PLATFORM } from './platFormEnum';
 
 export class UploadCommand implements UploadCommandInterface {
+  public platform: platFormInterface;
   private platformMap: Map<string, platFormInterface> = new Map();
-  constructor(private platform: platFormInterface) {
+  constructor() {
     this.platformMap.set(UPLOAD_PLATFORM.CUPANG, new CupangUpload());
     this.platformMap.set(UPLOAD_PLATFORM.NAVER, new NaverStoreUpload());
   }
@@ -15,7 +16,8 @@ export class UploadCommand implements UploadCommandInterface {
   getPlatform(): platFormInterface {
     return this.platform;
   }
-  uploadProductToPlatform(product: Product) {
+  uploadProductToPlatform(platform: UPLOAD_PLATFORM, product: Product) {
+    this.setPlatform(platform);
     return this.platform.upload(product);
   }
 }
@@ -23,7 +25,10 @@ export class UploadCommand implements UploadCommandInterface {
 export interface UploadCommandInterface {
   setPlatform(platform: string): void;
   getPlatform(): platFormInterface;
-  uploadProductToPlatform(product: Product): UploadResult;
+  uploadProductToPlatform(
+    platform: UPLOAD_PLATFORM,
+    product: Product,
+  ): UploadResult;
 }
 
 export interface platFormInterface {

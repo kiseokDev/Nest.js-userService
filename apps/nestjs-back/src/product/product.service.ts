@@ -35,7 +35,6 @@ export class ProductService {
   }
 
   uploadProductToPlatform(platform: UPLOAD_PLATFORM, product: Product) {
-    this.uploadCommand.setPlatform(platform);
-    return this.uploadCommand.uploadProductToPlatform(product);
+    return this.uploadCommand.uploadProductToPlatform(platform, product);
   }
 }
