@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { AutoIncrementID } from '@typegoose/auto-increment';
-import { HydratedDocument } from 'mongoose';
 @Schema({ timestamps: true })
 export class Cat {
   @Prop()

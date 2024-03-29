@@ -1,14 +1,12 @@
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule, getConnectionToken } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
 import { CatModule } from './cat/cat.module';
 import configuration from './config/configuration';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Logger, Module } from '@nestjs/common';
-import { Product } from './product/entities/product.entity';
 import { ProductModule } from './product/product.module';
-import * as AutoIncrementFactory from 'mongoose-sequence';
 import { Connection } from 'mongoose';
+import { Module } from '@nestjs/common';
 
 @Module({
   imports: [
