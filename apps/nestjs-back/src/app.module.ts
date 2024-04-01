@@ -8,6 +8,7 @@ import { ProductModule } from './product/product.module';
 import { Connection } from 'mongoose';
 import { Module } from '@nestjs/common';
 import { ProvidersModule } from './providers/providers.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { ProvidersModule } from './providers/providers.module';
     CatModule,
     ProductModule,
     ProvidersModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
