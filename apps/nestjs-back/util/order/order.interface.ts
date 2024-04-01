@@ -1,16 +1,17 @@
 import { ProductEntity } from 'apps/nestjs-back/src/product/entities/product.entity';
 
 export interface IOrder {
-  orderCrawlInfo: OrderCrawlInfo;
-  orderProductByCrawling(
-    orderNumber: number,
-    product: ProductEntity,
-  ): Promise<string>;
+  orderCrawlInfo: OrderInfo;
+  order(orderNumber: number, product: ProductEntity): Promise<string>;
 }
 
-export interface OrderCrawlInfo {
+export interface OrderInfo {
   url: string;
-  name: string;
+  loginUrl: string;
+  searchUrl: string;
+  productName: string;
+  productUrl: string;
+  price: number;
   description: string;
-  test: string;
+  images: string[];
 }

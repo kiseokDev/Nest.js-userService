@@ -1,13 +1,11 @@
 import { ProductEntity } from 'apps/nestjs-back/src/product/entities/product.entity';
-import { IOrder, OrderCrawlInfo } from '../Order.interface';
-import { domemeOrderCrawlInfo } from '../orderCrawlInfo.constant';
+import { IOrder, OrderInfo } from '../order.interface';
+import { domemeOrderInfo } from '../constant';
 
 export class DomemeOrder implements IOrder {
-  orderCrawlInfo: OrderCrawlInfo = domemeOrderCrawlInfo;
-  async orderProductByCrawling(
-    orderNumber: number,
-    product: ProductEntity,
-  ): Promise<string> {
+  orderCrawlInfo: OrderInfo;
+  OrderInfo: OrderInfo = domemeOrderInfo;
+  async order(orderNumber: number, product: ProductEntity): Promise<string> {
     //TODO : template 디자인패턴으로 구현해 보기
     try {
       await this.goToBrowser();
@@ -22,7 +20,7 @@ export class DomemeOrder implements IOrder {
     }
   }
   goToBrowser() {
-    console.log('goToBrowser', this.orderCrawlInfo.url);
+    console.log('goToBrowser', this.OrderInfo.url);
   }
   login() {
     console.log('login', '도매메가 로그인');

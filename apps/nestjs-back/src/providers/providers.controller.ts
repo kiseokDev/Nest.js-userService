@@ -10,6 +10,7 @@ import {
 import { ProvidersService } from './providers.service';
 import { CreateProviderDto } from './dto/create-provider.dto';
 import { UpdateProviderDto } from './dto/update-provider.dto';
+import { ProductEntity } from '../product/entities/product.entity';
 
 @Controller('providers')
 export class ProvidersController {
@@ -43,11 +44,24 @@ export class ProvidersController {
     return this.providersService.remove(+id);
   }
 
-  @Post('crawl')
+  @Post('source')
   crawlProduct(
     @Body('providerName') providerName: string,
     @Body('productName') productName: string,
   ) {
-    return this.providersService.crawlProduct(providerName, productName);
+    return this.providersService.crawlProduct22(providerName, productName);
+  }
+
+  @Post('order')
+  orderProduct(
+    @Body('orderNumber') orderNumber: number,
+    @Body('product') product: string,
+    @Body('providerName') providerName: string,
+  ) {
+    return this.providersService.orderProduct(
+      orderNumber,
+      product,
+      providerName,
+    );
   }
 }

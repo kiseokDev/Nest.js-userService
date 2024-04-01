@@ -1,5 +1,5 @@
 import { ProductEntity } from 'apps/nestjs-back/src/product/entities/product.entity';
-import { IOrder } from './Order.interface';
+import { IOrder } from './order.interface';
 
 export class OrderCommand {
   protected crawler: IOrder;
@@ -10,6 +10,6 @@ export class OrderCommand {
     orderNumber: number,
     product: ProductEntity,
   ): Promise<string> {
-    return await this.crawler.orderProductByCrawling(orderNumber, product);
+    return await this.crawler.order(orderNumber, product);
   }
 }

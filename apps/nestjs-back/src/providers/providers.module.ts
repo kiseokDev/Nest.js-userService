@@ -3,7 +3,8 @@ import { ProvidersService } from './providers.service';
 import { ProvidersController } from './providers.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProviderEntity, ProviderSchema } from './entities/provider.entity';
-import { CrawlProductClient } from 'apps/nestjs-back/util/providerCompany/client';
+import { SourcingCommand } from 'apps/nestjs-back/util/sourcing/sourcingCommand';
+import { CrawlCommand } from 'apps/nestjs-back/util/crawler/crawlCommand';
 
 @Module({
   imports: [
@@ -12,6 +13,6 @@ import { CrawlProductClient } from 'apps/nestjs-back/util/providerCompany/client
     ]),
   ],
   controllers: [ProvidersController],
-  providers: [ProvidersService, CrawlProductClient],
+  providers: [ProvidersService, SourcingCommand, CrawlCommand],
 })
 export class ProvidersModule {}

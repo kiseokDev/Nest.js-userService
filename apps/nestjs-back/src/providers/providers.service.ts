@@ -4,14 +4,19 @@ import { UpdateProviderDto } from './dto/update-provider.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { ProviderEntity } from './entities/provider.entity';
 import { Model } from 'mongoose';
-import { CrawlProductClient } from 'apps/nestjs-back/util/providerCompany/client';
-import { DomemeCrawler } from 'apps/nestjs-back/util/providerCompany/crawler/domeme/Domeme';
-import { AbstractProductCrawler } from 'apps/nestjs-back/util/providerCompany/crawler/providerCrawler.interface';
+import { SourcingCommand } from 'apps/nestjs-back/util/sourcing/sourcingCommand';
+import { DomemeSourcing } from 'apps/nestjs-back/util/sourcing/domeme/domemeSourcing';
+import { ISourcing } from 'apps/nestjs-back/util/sourcing/sourcing.interface';
+import { CrawlCommand } from 'apps/nestjs-back/util/crawler/crawlCommand';
+import { ICrawler } from 'apps/nestjs-back/util/crawler/interface';
+import { DomemeCrawler } from 'apps/nestjs-back/util/crawler/domeme/Domeme.crawler';
+import { ProductEntity } from '../product/entities/product.entity';
 
 @Injectable()
 export class ProvidersService {
   constructor(
-    private crawlProductClient: CrawlProductClient,
+    private sourcingCommand: SourcingCommand,
+    private crawlCommand: CrawlCommand,
     @InjectModel(ProviderEntity.name)
     private productModel: Model<ProviderEntity>,
   ) {}
@@ -37,20 +42,51 @@ export class ProvidersService {
 
   crawlProduct(providerName: string, productName: string) {
     const cralwer = this.buildCrawler(providerName);
-    this.crawlProductClient.setSupplyCrawler(cralwer);
-    return this.crawlProductClient.crawl(productName);
+    this.sourcingCommand.setSupplyCrawler(cralwer);
+    return this.sourcingCommand.crawl(productName);
   }
 
-  buildCrawler(productName: string): AbstractProductCrawler {
+  buildCrawler(productName: string): ISourcing {
     switch (productName) {
       case 'domeme':
-        return new DomemeCrawler();
-        break;
+        return new DomemeSourcing();
       default:
         throw new HttpException(
           '사용가능한 공급사가 아닙니다.',
           HttpStatus.BAD_REQUEST,
         );
     }
+  }
+
+  buildCrawler222(productName: string): ICrawler {
+    // switch (productName) {
+    //   case 'domeme':
+    //     return new DomemeSourcing();
+    //   default:
+    //     throw new HttpException(
+    //       '사용가능한 공급사가 아닙니다.',
+    //       HttpStatus.BAD_REQUEST,
+    //     );
+    // }
+    switch (productName) {
+      case 'domeme':
+        return new DomemeCrawler();
+    }
+  }
+
+  crawlProduct22(providerName: string, productName: string) {
+    const cralwer = this.buildCrawler222(providerName);
+    this.crawlCommand.setCrawler(cralwer);
+    return this.crawlCommand.sourcing(productName);
+  }
+
+  orderProduct(
+    orderNumber: number,
+    product: string,
+    providerName: string,
+  ): Promise<string> {
+    const orderCrawler = this.buildCrawler222(providerName);
+    this.crawlCommand.setCrawler(orderCrawler);
+    return this.crawlCommand.order(orderNumber, product);
   }
 }

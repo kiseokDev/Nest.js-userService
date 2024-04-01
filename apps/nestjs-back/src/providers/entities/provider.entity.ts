@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { AutoIncrementID } from '@typegoose/auto-increment';
-import { CrawlInfo } from 'apps/nestjs-back/util/providerCompany/crawler/providerCrawler.interface';
+import { DoememeSourcingInfoType } from 'apps/nestjs-back/util/sourcing/constant';
 
 @Schema({ timestamps: true, collection: 'Providers' })
 export class ProviderEntity {
@@ -13,7 +13,7 @@ export class ProviderEntity {
   @Prop()
   description: string;
   @Prop({ type: Object })
-  crawlInfo: CrawlInfo;
+  crawlInfo: DoememeSourcingInfoType;
 }
 
 export const ProviderSchema = SchemaFactory.createForClass(ProviderEntity);
