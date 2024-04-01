@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductModule } from './product/product.module';
 import { Connection } from 'mongoose';
 import { Module } from '@nestjs/common';
+import { ProvidersModule } from './providers/providers.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { Module } from '@nestjs/common';
     }),
     CatModule,
     ProductModule,
+    ProvidersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
