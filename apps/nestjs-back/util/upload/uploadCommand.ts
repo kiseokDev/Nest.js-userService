@@ -1,4 +1,4 @@
-import { Product } from 'apps/nestjs-back/src/product/entities/product.entity';
+import { ProductEntity } from 'apps/nestjs-back/src/product/entities/product.entity';
 import { CupangUpload } from './cupang';
 import { NaverStoreUpload } from './naver';
 import { UPLOAD_PLATFORM } from './platFormEnum';
@@ -16,7 +16,7 @@ export class UploadCommand implements UploadCommandInterface {
   getPlatform(): platFormInterface {
     return this.platform;
   }
-  uploadProductToPlatform(platform: UPLOAD_PLATFORM, product: Product) {
+  uploadProductToPlatform(platform: UPLOAD_PLATFORM, product: ProductEntity) {
     this.setPlatform(platform);
     return this.platform.upload(product);
   }
@@ -27,12 +27,12 @@ export interface UploadCommandInterface {
   getPlatform(): platFormInterface;
   uploadProductToPlatform(
     platform: UPLOAD_PLATFORM,
-    product: Product,
+    product: ProductEntity,
   ): UploadResult;
 }
 
 export interface platFormInterface {
-  upload(product: Product): UploadResult;
+  upload(product: ProductEntity): UploadResult;
 }
 
 export type UploadResult = any;

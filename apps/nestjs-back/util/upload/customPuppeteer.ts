@@ -1,34 +1,34 @@
-import { Product } from '../../src/product/entities/product.entity';
+import { ProductEntity } from '../../src/product/entities/product.entity';
 
 export class CustomPuppeteer {
-  naverStoreUplaod(product: Product) {
+  naverStoreUplaod(product: ProductEntity) {
     return { product, test: 'naverStoreUplaod' };
   }
-  cupangStoreUplaod(product: Product) {
+  cupangStoreUplaod(product: ProductEntity) {
     return { product, test: 'cupangStoreUplaod' };
   }
-  gmarketStoreUplaod(product: Product) {
+  gmarketStoreUplaod(product: ProductEntity) {
     return { product, test: 'gmarketStoreUplaod' };
   }
-  auctionStoreUplaod(product: Product) {
+  auctionStoreUplaod(product: ProductEntity) {
     return { product, test: 'auctionStoreUplaod' };
   }
-  elevenStoreUplaod(product: Product) {
+  elevenStoreUplaod(product: ProductEntity) {
     return { product, test: 'elevenStoreUplaod' };
   }
-  wemakepriceStoreUplaod(product: Product) {
+  wemakepriceStoreUplaod(product: ProductEntity) {
     return { product, test: 'wemakepriceStoreUplaod' };
   }
-  ssgStoreUplaod(product: Product) {
+  ssgStoreUplaod(product: ProductEntity) {
     return { product, test: 'ssgStoreUplaod' };
   }
-  tmonStoreUplaod(product: Product) {
+  tmonStoreUplaod(product: ProductEntity) {
     return { product, test: 'tmonStoreUplaod' };
   }
-  wconceptStoreUplaod(product: Product) {
+  wconceptStoreUplaod(product: ProductEntity) {
     return { product, test: 'wconceptStoreUplaod' };
   }
-  interparkStoreUplaod(product: Product) {
+  interparkStoreUplaod(product: ProductEntity) {
     return { product, test: 'interparkStoreUplaod' };
   }
 }
