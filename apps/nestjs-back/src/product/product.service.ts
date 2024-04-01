@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { Product } from './entities/product.entity';
+import { ProductEntity } from './entities/product.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UploadCommand } from 'apps/nestjs-back/util/upload/uploadCommand';
@@ -10,7 +10,7 @@ import { UPLOAD_PLATFORM } from 'apps/nestjs-back/util/upload/platFormEnum';
 @Injectable()
 export class ProductService {
   constructor(
-    @InjectModel(Product.name) private productModel: Model<Product>,
+    @InjectModel(ProductEntity.name) private productModel: Model<ProductEntity>,
     private uploadCommand: UploadCommand,
   ) {}
   create(createProductDto: CreateProductDto) {
@@ -34,7 +34,7 @@ export class ProductService {
     return this.productModel.findByIdAndDelete(id, { isDeleted: true }).exec();
   }
 
-  uploadProductToPlatform(platform: UPLOAD_PLATFORM, product: Product) {
+  uploadProductToPlatform(platform: UPLOAD_PLATFORM, product: ProductEntity) {
     return this.uploadCommand.uploadProductToPlatform(platform, product);
   }
 }

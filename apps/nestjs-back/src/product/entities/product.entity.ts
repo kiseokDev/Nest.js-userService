@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { AutoIncrementID } from '@typegoose/auto-increment';
 
-@Schema({ timestamps: true })
-export class Product {
+@Schema({ timestamps: true, collection: 'Products' })
+export class ProductEntity {
   @Prop()
   id: number;
 
@@ -22,7 +22,7 @@ export class Product {
   url: string;
 }
 
-export const ProductSchema = SchemaFactory.createForClass(Product);
+export const ProductSchema = SchemaFactory.createForClass(ProductEntity);
 // export const ProductSchema = new mongoose.Schema({
 //   product_id: { type: Number, unique: true },
 //   name: { type: String, required: true },
