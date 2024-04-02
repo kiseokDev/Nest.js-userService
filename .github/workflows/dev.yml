@@ -1,0 +1,43 @@
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  build-and-push-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build docker_
+        run: |
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          echo ${{ secrets.DOCKERHUB_TOKEN }}
+    #       docker buildx create --use
+    #       docker buildx build --platform linux/amd64,linux/arm64/v8 -t devleekiseok0126/nestjs-crawl:dev --push
+
+  deploy-to-ec2:
+    needs: build-and-push-docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: ec2 ssh login
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_SSH_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            whoami
+            ls -al
+            cd /home/ubuntu/projects/crawling && docker-compose up -d
+
+#   run: |
+#     echo "$PRIVATE_KEY" > private_key
+#     chmod 600 private_key
+#     ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
+#     cd /<path to your cloned github repository on the server>
+#     git checkout main
+#     git fetch --all
+#     git reset --hard origin/main
+#     git pull origin main
+#     docker-compose up -d --build'
