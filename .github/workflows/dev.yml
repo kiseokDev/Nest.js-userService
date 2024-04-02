@@ -2,15 +2,23 @@ on:
   push:
     branches: [dev]
 jobs:
-  login:
+  build-and-push-docker:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-  build-and-push-docker:
+      - name: Build and push
+        run: |
+          docker buildx create --use
+          docker buildx build --platform linux/amd64,linux/arm64/v8 -t devleekiseok0126/nestjs-crawl:dev --push
+
+  deploy-ec2:
     runs-on: ubuntu-latest
     steps:
       - name: ec2 ssh login
@@ -22,10 +30,4 @@ jobs:
           script: |
             whoami
             ls -al
-      #         cd /home/ubuntu/projects/crawling && docker-compose up -d
-      # - name: Build docker_
-      #   run: |
-      #     docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-      #     echo ${{ secrets.DOCKERHUB_TOKEN }}
-    #       docker buildx create --use
-    #       docker buildx build --platform linux/amd64,linux/arm64/v8 -t devleekiseok0126/nestjs-crawl:dev --push
+            cd /home/ubuntu/projects/crawling && docker-compose up -d
