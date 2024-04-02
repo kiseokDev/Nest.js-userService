@@ -16,7 +16,7 @@ jobs:
       - name: Build and push
         run: |
           docker buildx create --use
-          docker buildx build --platform linux/amd64,linux/arm64/v8 -t devleekiseok0126/nestjs-crawl:dev --push
+          docker buildx build --platform linux/amd64,linux/arm64/v8 -t devleekiseok0126/nestjs-crawl:dev . --push
 
   deploy-ec2:
     runs-on: ubuntu-latest
