@@ -1,0 +1,61 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ~/mongodb_dev:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=dev
+      - MONGO_INITDB_ROOT_PASSWORD=2536
+      - MONGO_INITDB_DATABASE=crawl
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: dev
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 2536
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: 1234
+      ME_CONFIG_MONGODB_URL: mongodb://dev:2536@mongodb:27017
+    depends_on:
+      - mongodb
+
+  dev-app:
+    # image: devleekiseok0126/nestjs-crawl:dev
+    image: dev-app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    container_name: dev-app
+    ports:
+      - 3001:3001
+    depends_on:
+      - mongodb
+    environment:
+      PORT: 3001
+      DATABASE_NAME: crawl
+      DATABASE_USER: dev
+      DATABASE_PASS: 2536
+      DATABASE_URI: mongodb://mongodb:27017
+    # volumes:
+    #   - ./:/usr/src/app
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    platform: linux/amd64
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/combined.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - dev-app

@@ -1753,6 +1753,14 @@
   resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz"
   integrity sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==
 
+"@typegoose/auto-increment@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@typegoose/auto-increment/-/auto-increment-4.2.0.tgz#02ed672ec59c05d883657515a57395e46a577a44"
+  integrity sha512-LB0kAGnPDkNoptPr0vZHWayfL9keuYj+KPjdrdFVPjIUQvb4B2aR1woWrrHlZxSb4tUs/OzprwUh8kCdqTRhPw==
+  dependencies:
+    loglevel "^1.9.1"
+    tslib "^2.6.2"
+
 "@types/babel__core@^7.1.14":
   version "7.20.5"
   resolved "https://registry.npmjs.org/@types/babel__core/-/babel__core-7.20.5.tgz"
@@ -4676,6 +4684,11 @@ log-symbols@^4.1.0:
   dependencies:
     chalk "^4.1.0"
     is-unicode-supported "^0.1.0"
+
+loglevel@^1.9.1:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.9.1.tgz#d63976ac9bcd03c7c873116d41c2a85bafff1be7"
+  integrity sha512-hP3I3kCrDIMuRwAwHltphhDM1r8i55H33GgqjXbrisuJhF4kRhW1dNuxsRklp4bXl8DSdLaNLuiL4A/LWRfxvg==
 
 lru-cache@^5.1.1:
   version "5.1.1"
