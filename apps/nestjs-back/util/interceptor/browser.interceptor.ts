@@ -7,11 +7,11 @@ import {
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import puppeteer from 'puppeteer';
-import { ProvidersService } from 'apps/nestjs-back/src/providers/providers.service';
+import { StocksService } from 'apps/nestjs-back/src/stocks/stocks.service';
 
 @Injectable()
 export class PuppeteerInterceptor implements NestInterceptor {
-  constructor(private readonly providersService: ProvidersService) {}
+  constructor(private readonly stockService: StocksService) {}
 
   async intercept(
     context: ExecutionContext,
@@ -20,7 +20,7 @@ export class PuppeteerInterceptor implements NestInterceptor {
     // Launch the browser
     console.log('Launching browser');
     const browser = await puppeteer.launch({ headless: false });
-    this.providersService.setBrowser(browser);
+    this.stockService.setBrowser(browser);
 
     return next.handle().pipe(
       tap(async () => {
