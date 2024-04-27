@@ -9,6 +9,7 @@ import { Connection } from 'mongoose';
 import { Module } from '@nestjs/common';
 import { StocksModule } from './stocks/stocks.module';
 import { OrderModule } from './order/order.module';
+import { HealthCheckModule } from './healthCheck/healthCheck.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { OrderModule } from './order/order.module';
     ProductModule,
     StocksModule,
     OrderModule,
+    HealthCheckModule,
   ],
   controllers: [AppController],
   providers: [AppService],
