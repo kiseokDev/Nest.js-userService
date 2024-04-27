@@ -10,6 +10,7 @@ import { Module } from '@nestjs/common';
 import { StocksModule } from './stocks/stocks.module';
 import { OrderModule } from './order/order.module';
 import { HealthCheckModule } from './healthCheck/healthCheck.module';
+import { BatchModule } from './batch/batch.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { HealthCheckModule } from './healthCheck/healthCheck.module';
     StocksModule,
     OrderModule,
     HealthCheckModule,
+    BatchModule,
   ],
   controllers: [AppController],
   providers: [AppService],
