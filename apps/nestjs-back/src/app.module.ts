@@ -11,6 +11,7 @@ import { StocksModule } from './stocks/stocks.module';
 import { OrderModule } from './order/order.module';
 import { HealthCheckModule } from './healthCheck/healthCheck.module';
 import { BatchModule } from './batch/batch.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { BatchModule } from './batch/batch.module';
     OrderModule,
     HealthCheckModule,
     BatchModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
