@@ -11,7 +11,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema/user.schema';
 import { Model, Types } from 'mongoose';
-import { TestEvent, UserCreatedEvent } from './user.event';
+import { CqrsEvent, TestEvent, UserCreatedEvent } from './user.event';
 import { EmailService } from '../email/email.service';
 import { BadRequestException } from '@nestjs/common';
 export class CreateUserCommand implements ICommand {
@@ -26,6 +26,22 @@ export class GetUserInfoQuery {
   constructor(public readonly userId: string) {}
 }
 
+@EventsHandler(CqrsEvent)
+export class UserEventHandler
+  implements IEventHandler<UserCreatedEvent | TestEvent>
+{
+  constructor(private emailService: EmailService) {}
+
+  async handle(event: UserCreatedEvent | TestEvent) {
+    if (event instanceof UserCreatedEvent) {
+      console.log('User created event!!!');
+      this.emailService.sendEmail(event.email, event.signupVerifytoken);
+    }
+    if (event instanceof TestEvent) {
+      console.log('Test event!!!!!!');
+    }
+  }
+}
 @QueryHandler(GetUserInfoQuery)
 export class GetUserInfoHandler implements IQueryHandler<GetUserInfoQuery> {
   constructor(
@@ -42,23 +58,6 @@ export class GetUserInfoHandler implements IQueryHandler<GetUserInfoQuery> {
       throw new BadRequestException('User not found');
     }
     return user;
-  }
-}
-
-@EventsHandler(TestEvent, UserCreatedEvent)
-export class UserEventHandler
-  implements IEventHandler<UserCreatedEvent | TestEvent>
-{
-  constructor(private emailService: EmailService) {}
-
-  async handle(event: UserCreatedEvent | TestEvent) {
-    if (event instanceof UserCreatedEvent) {
-      console.log('User created event!!!');
-      this.emailService.sendEmail(event.email, event.signupVerifytoken);
-    }
-    if (event instanceof TestEvent) {
-      console.log('Test event!!!!!!');
-    }
   }
 }
 

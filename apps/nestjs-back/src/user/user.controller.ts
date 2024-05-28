@@ -9,6 +9,7 @@ import {
 import { CommandBus, EventBus, QueryBus } from '@nestjs/cqrs';
 import { CreateUserCommand, GetUserInfoQuery } from './user.handlers';
 import { CreateUserDto } from './dto/create-user.dto';
+import { TestEvent } from './user.event';
 
 @Controller('user')
 export class UserController {
@@ -34,5 +35,11 @@ export class UserController {
   @Get(':id')
   async getUser(@Param('id') userId: string) {
     return await this.queryBus.execute(new GetUserInfoQuery(userId));
+    // return await this.queryBus.execute(new TestEvent(userId));
+  }
+
+  @Get()
+  async list() {
+    return await this.eventBus.publish(new TestEvent());
   }
 }
