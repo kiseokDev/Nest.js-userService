@@ -12,6 +12,8 @@ import { OrderModule } from './order/order.module';
 import { HealthCheckModule } from './healthCheck/healthCheck.module';
 import { BatchModule } from './batch/batch.module';
 import { UserModule } from './user/user.module';
+import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -37,6 +39,12 @@ import { UserModule } from './user/user.module';
       }),
       inject: [ConfigService],
     }),
+    CacheModule.register({
+      max: 10, // maximum number of items in cache
+      isGlobal: true,
+      ttl: 10000,
+    }),
+    // CustomCacheModule,
     CatModule,
     ProductModule,
     StocksModule,
@@ -46,6 +54,13 @@ import { UserModule } from './user/user.module';
     UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+    //Glbal CacheInterceptor
+  ],
 })
 export class AppModule {}
