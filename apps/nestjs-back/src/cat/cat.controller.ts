@@ -27,7 +27,7 @@ export class CatController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.catService.findOne(+id);
+    return this.catService.findOne(id);
   }
 
   @Patch(':id')

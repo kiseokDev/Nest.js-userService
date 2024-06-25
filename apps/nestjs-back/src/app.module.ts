@@ -12,11 +12,20 @@ import { OrderModule } from './order/order.module';
 import { HealthCheckModule } from './healthCheck/healthCheck.module';
 import { BatchModule } from './batch/batch.module';
 import { UserModule } from './user/user.module';
-import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CacheModule } from '@nestjs/cache-manager';
+import { CustomCacheModule } from './cache/cache.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
+// import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
 @Module({
   imports: [
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      playground: true,
+      autoSchemaFile: join(process.cwd(), 'apps/nestjs-back/src/schema.gql'),
+    }),
     ConfigModule.forRoot({
       load: [configuration],
       envFilePath: `.env.${process.env.NODE_ENV}`,
@@ -44,7 +53,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       isGlobal: true,
       ttl: 10000,
     }),
-    // CustomCacheModule,
+    CustomCacheModule,
     CatModule,
     ProductModule,
     StocksModule,
@@ -56,10 +65,10 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor,
-    },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: CacheInterceptor,
+    // },
     //Glbal CacheInterceptor
   ],
 })

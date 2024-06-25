@@ -1,7 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { AutoIncrementID } from '@typegoose/auto-increment';
+import { Types } from 'mongoose';
 @Schema({ timestamps: true })
 export class Cat {
+  _id: Types.ObjectId;
+
   @Prop()
   id: number;
 
@@ -11,7 +14,7 @@ export class Cat {
   @Prop()
   age: number;
 
-  @Prop()
+  @Prop({ required: false })
   breed: string;
 }
 
