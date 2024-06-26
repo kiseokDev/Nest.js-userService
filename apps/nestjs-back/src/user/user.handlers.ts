@@ -14,6 +14,7 @@ import { Model, Types } from 'mongoose';
 import { CqrsEvent, TestEvent, UserCreatedEvent } from './user.event';
 import { EmailService } from '../email/email.service';
 import { BadRequestException } from '@nestjs/common';
+import * as uuid from 'uuid';
 export class CreateUserCommand implements ICommand {
   constructor(
     readonly name: string,
@@ -35,7 +36,10 @@ export class UserEventHandler
   async handle(event: UserCreatedEvent | TestEvent) {
     if (event instanceof UserCreatedEvent) {
       console.log('User created event!!!');
-      this.emailService.sendEmail(event.email, event.signupVerifytoken);
+      this.emailService.sendMemberJoinVerification(
+        event.email,
+        event.signupVerifytoken,
+      );
     }
     if (event instanceof TestEvent) {
       console.log('Test event!!!!!!');
@@ -71,8 +75,8 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
 
   async execute(command: CreateUserCommand): Promise<User> {
     const { name, email, password } = command;
-    const signupVerifytoken = Math.random().toString(36).substring(7);
-    const user = new this.model({ name, email, password });
+    const signupVerifytoken = uuid.v1();
+    const user = new this.model({ name, email, password, signupVerifytoken });
     if (!user) {
       return null;
     }

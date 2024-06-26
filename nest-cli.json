@@ -5,7 +5,13 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/nestjs-back/tsconfig.app.json"
+    "tsConfigPath": "apps/nestjs-back/tsconfig.app.json",
+    "assets": [ 
+      {
+        "include": "config/env/.env.*",
+        "outDir": "dist/apps/nestjs-back"
+      }
+    ]
   },
   "monorepo": true,
   "root": "apps/nestjs-back",

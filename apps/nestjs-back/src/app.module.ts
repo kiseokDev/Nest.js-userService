@@ -2,7 +2,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CatModule } from './cat/cat.module';
-import configuration from './config/configuration';
+import databaseConfig from './config/configuration';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductModule } from './product/product.module';
 import { Connection } from 'mongoose';
@@ -17,8 +17,10 @@ import { CustomCacheModule } from './cache/cache.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
+import authConfig from './config/authConfig';
+import emailConfig from './config/emailConfig';
 // import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
-
+console.log('dirname:', __dirname);
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -27,8 +29,11 @@ import { join } from 'path';
       autoSchemaFile: join(process.cwd(), 'apps/nestjs-back/src/schema.gql'),
     }),
     ConfigModule.forRoot({
-      load: [configuration],
-      envFilePath: `.env.${process.env.NODE_ENV}`,
+      load: [databaseConfig, authConfig, emailConfig],
+      envFilePath: [
+        // `apps/nestjs-back/src/config/env/.env.${process.env.NODE_ENV}`,
+        `${__dirname}/config/env/.env.${process.env.NODE_ENV}`,
+      ],
       isGlobal: true,
     }),
     MongooseModule.forRootAsync({

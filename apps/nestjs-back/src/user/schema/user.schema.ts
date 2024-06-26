@@ -9,6 +9,9 @@ export class User {
 
   @Prop()
   password: string;
+
+  @Prop()
+  signupVerifyToken: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
