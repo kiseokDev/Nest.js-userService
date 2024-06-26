@@ -2,7 +2,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CatModule } from './cat/cat.module';
-import databaseConfig from './config/configuration';
+import databaseConfig from './config/databaseConfig';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductModule } from './product/product.module';
 import { Connection } from 'mongoose';
@@ -19,8 +19,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import authConfig from './config/authConfig';
 import emailConfig from './config/emailConfig';
-// import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
-console.log('dirname:', __dirname);
+import { validationSchema } from './config/validation.schema';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -35,6 +35,7 @@ console.log('dirname:', __dirname);
         `${__dirname}/config/env/.env.${process.env.NODE_ENV}`,
       ],
       isGlobal: true,
+      validationSchema,
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -66,6 +67,7 @@ console.log('dirname:', __dirname);
     HealthCheckModule,
     BatchModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
