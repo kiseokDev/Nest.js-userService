@@ -21,8 +21,17 @@ import authConfig from './config/authConfig';
 import emailConfig from './config/emailConfig';
 import { validationSchema } from './config/validation.schema';
 import { AuthModule } from './auth/auth.module';
+import { BullModule } from '@nestjs/bull';
+import { QueueModule } from './audio/audio.module';
+import { EmailModule } from './email/email.module';
 @Module({
   imports: [
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: true,
@@ -68,6 +77,8 @@ import { AuthModule } from './auth/auth.module';
     BatchModule,
     UserModule,
     AuthModule,
+    QueueModule,
+    EmailModule,
   ],
   controllers: [AppController],
   providers: [
