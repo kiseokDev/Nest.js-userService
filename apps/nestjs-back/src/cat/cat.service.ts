@@ -1,14 +1,15 @@
+import { CatsInput } from './schema/cat.entities';
 import { Injectable } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Cat } from './entity/cat.schema';
+import { Cat } from './schema/cat.schema';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class CatService {
   constructor(@InjectModel(Cat.name) private catModel: Model<Cat>) {}
-  create(createCatDto: CreateCatDto) {
+  create(createCatDto: CreateCatDto | CatsInput) {
     const createdCat = new this.catModel(createCatDto);
     return createdCat.save();
   }
@@ -17,7 +18,7 @@ export class CatService {
     return this.catModel.find().exec();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.catModel.findById(id).exec();
   }
 
