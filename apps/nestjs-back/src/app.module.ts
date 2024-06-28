@@ -4,11 +4,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CatModule } from './cat/cat.module';
 import databaseConfig from './config/databaseConfig';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ProductModule } from './product/product.module';
 import { Connection } from 'mongoose';
 import { Module } from '@nestjs/common';
-import { StocksModule } from './stocks/stocks.module';
-import { OrderModule } from './order/order.module';
 import { HealthCheckModule } from './healthCheck/healthCheck.module';
 import { BatchModule } from './batch/batch.module';
 import { UserModule } from './user/user.module';
@@ -70,9 +67,6 @@ import { EmailModule } from './email/email.module';
     }),
     CustomCacheModule,
     CatModule,
-    ProductModule,
-    StocksModule,
-    OrderModule,
     HealthCheckModule,
     BatchModule,
     UserModule,
