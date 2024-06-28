@@ -25,6 +25,10 @@
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<p>1. restAPI 유저 서비스 </p>
+1. 제공기능 : 회원 가입, 이메일 인증, 로그인, 회원 정보 조회 
+2. 사용기술 : 환경변수동적설정, 요청 유효성 검사, 인증(JWT), 헬스체크, CQRS 패턴 (조회/업데이트 DB분리), 클린 아키택쳐, 메세징 큐 작업 분산시스템, GraphQL(일부 도메인), 태스크 스케줄링, 클린 아키택쳐, 테스트 자동화 
+3. 스팩 : Nest.js, Redis, Nginx, MongoDB, AWS ec2, GitAction, Docker, Yarn, 
 
 ## Installation
 
